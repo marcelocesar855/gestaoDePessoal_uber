@@ -51,7 +51,6 @@ public class Login {
 	public Login() {
 		initialize();
 	}
-	MenuPessoa frame = new MenuPessoa();
 	@SuppressWarnings({ "unlikely-arg-type", "deprecation" })
 	public void validaLogin() {
 		int c = 0;
@@ -74,12 +73,12 @@ public class Login {
 				for (int i = 0; i < motoristas.size(); i++) {
 					if (motoristas.get(i).getIdPessoa() == (p1.getIdPessoa())) {
 //						executa interface de menu motorista
-
+						new MenuMotorista().setVisible(true);
 						break;
 					}
 				}
 //				executa interface de menu pessoa
-
+				ew MenuPessoa().setVisible(true);
 			}
 		
 		else {
