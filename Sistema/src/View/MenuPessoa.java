@@ -11,12 +11,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import Controller.CorridaDAO;
 import Controller.PessoaDAO;
 import Model.Pessoa;
 
 public class MenuPessoa {
 
 	private JFrame frmDas;
+
+	/**
+	 * @return the frmDas
+	 */
+	public JFrame getFrmDas() {
+		return frmDas;
+	}
 
 	/**
 	 * Launch the application.
@@ -41,6 +49,8 @@ public class MenuPessoa {
 		initialize();
 	}
 
+	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -53,15 +63,15 @@ public class MenuPessoa {
 		JButton btnNewButton = new JButton("Criar nova conta");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nome = JOptionPane.showInputDialog("Qual seu nome?");
-				String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
-				int cpfInt = Integer.parseInt(cpf);
-				String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
-				int telefoneInt = Integer.parseInt(telefone);
-				String email = JOptionPane.showInputDialog("Qual seu email?");
-				String senha = JOptionPane.showInputDialog("Defina uma senha");
-				Pessoa p1 = new Pessoa(cpfInt, nome, email, senha, telefoneInt);
 				try {
+					String nome = JOptionPane.showInputDialog("Qual seu nome?");
+					String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
+					int cpfInt = Integer.parseInt(cpf);
+					String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
+					int telefoneInt = Integer.parseInt(telefone);
+					String email = JOptionPane.showInputDialog("Qual seu email?");
+					String senha = JOptionPane.showInputDialog("Defina uma senha");
+					Pessoa p1 = new Pessoa(cpfInt, nome, email, senha, telefoneInt);
 					PessoaDAO.cadastrarPessoa(p1);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -73,13 +83,13 @@ public class MenuPessoa {
 		JButton btnAlterarCadastro = new JButton("Alterar cadastro");
 		btnAlterarCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = JOptionPane.showInputDialog("Novo nome: ");
-				String cpf = JOptionPane.showInputDialog("Novo CPF: ");
-				long cpfLong = Long.parseLong(cpf);
-				String telefone = JOptionPane.showInputDialog("Novo telefone: ");
-				long telefoneLong = Long.parseLong(telefone);
-				Pessoa p1 = new Pessoa (cpfLong, nome, null, null, telefoneLong);
 				try {
+					String nome = JOptionPane.showInputDialog("Novo nome: ");
+					String cpf = JOptionPane.showInputDialog("Novo CPF: ");
+					long cpfLong = Long.parseLong(cpf);
+					String telefone = JOptionPane.showInputDialog("Novo telefone: ");
+					long telefoneLong = Long.parseLong(telefone);
+					Pessoa p1 = new Pessoa (cpfLong, nome, null, null, telefoneLong);
 					PessoaDAO.alterarPessoa(p1);
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -91,14 +101,14 @@ public class MenuPessoa {
 		JButton btnExcluirCadastro = new JButton("Excluir cadastro");
 		btnExcluirCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			String email = JOptionPane.showInputDialog("Email do cadastro que deseja excluir: ");
-			Pessoa p1 = new Pessoa();
-			p1 = PessoaDAO.resgataDados(email);
-			try {
-				PessoaDAO.excluirPessoa(p1);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+				try {
+					String email = JOptionPane.showInputDialog("Email do cadastro que deseja excluir: ");
+					Pessoa p1 = new Pessoa();
+					p1 = PessoaDAO.resgataDados(email);
+					PessoaDAO.excluirPessoa(p1);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		frmDas.getContentPane().add(btnExcluirCadastro, BorderLayout.EAST);
@@ -109,7 +119,6 @@ public class MenuPessoa {
 				String email = JOptionPane.showInputDialog("Email do cadastro que deseja consultar: ");
 				Pessoa p1 = new Pessoa();
 				p1 = PessoaDAO.resgataDados(email);
-				PessoaDAO.lePessoa(p1.getIdPessoa());
 				 JOptionPane.showMessageDialog(null,"Nome: " + p1.getNome()+ "\n"
 				    + "CPF: " + p1.getCpf() + "\n"
 				    + "Telefone: " + p1.getTelefone() + "\n"
@@ -121,7 +130,10 @@ public class MenuPessoa {
 		JButton btnSolicitarCorrida = new JButton("Solicitar Corrida");
 		btnSolicitarCorrida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//aqui seria chamado o metodo para criacao de um objeto do tipo corrida
+				String destino;
+				destino = JOptionPane.showInputDialog("Para onde deseja ir: ");
+				CorridaDAO.montaCorrida(destino);
+				JOptionPane.showMessageDialog(null, "Aguarde seu motorista!\nEle esta a caminho...");
 			}
 		});
 		frmDas.getContentPane().add(btnSolicitarCorrida, BorderLayout.CENTER);

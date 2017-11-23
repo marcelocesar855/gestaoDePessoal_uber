@@ -73,12 +73,14 @@ public class Login {
 				for (int i = 0; i < motoristas.size(); i++) {
 					if (motoristas.get(i).getIdPessoa() == (p1.getIdPessoa())) {
 //						executa interface de menu motorista
-						new MenuMotorista().setVisible(true);
+						MenuMotorista frame = new MenuMotorista();
+						frame.getFrmMenu().setVisible(true);
 						break;
 					}
 				}
 //				executa interface de menu pessoa
-				ew MenuPessoa().setVisible(true);
+				MenuPessoa frame = new MenuPessoa();
+				frame.getFrmDas().setVisible(true);
 			}
 		
 		else {
@@ -123,7 +125,7 @@ public class Login {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					validaLogin();
-					
+			
 			}
 		});
 		btnEnviar.setBounds(10, 107, 89, 23);
@@ -142,38 +144,42 @@ public class Login {
 					resposta = JOptionPane.showInputDialog(null,"Quem e voce?","Identificacao",
 					JOptionPane.PLAIN_MESSAGE,null,opcoes,null);
 					if (resposta == "Passageiro") {
-						JOptionPane.showMessageDialog(null, "Ola passageiro!\n"
-						+ "Vamos cadastra-lo ao sistema para com que voce possa solicitar seu motorista!");
-						String nome = JOptionPane.showInputDialog("Qual seu nome?");
-						String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
-						int cpfInt = Integer.parseInt(cpf);
-						String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
-						int telefoneInt = Integer.parseInt(telefone);
-						String email = JOptionPane.showInputDialog("Qual seu email?");
-						String senha = JOptionPane.showInputDialog("Defina uma senha");
-						Pessoa p1 = new Pessoa(cpfInt, nome, email, senha, telefoneInt);
 						try {
+							JOptionPane.showMessageDialog(null, "Ola passageiro!\n"
+							+ "Vamos cadastra-lo ao sistema para com que voce possa solicitar seu motorista!");
+							String nome = JOptionPane.showInputDialog("Qual seu nome?");
+							String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
+							int cpfInt = Integer.parseInt(cpf);
+							String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
+							int telefoneInt = Integer.parseInt(telefone);
+							String email = JOptionPane.showInputDialog("Qual seu email?");
+							String senha = JOptionPane.showInputDialog("Defina uma senha");
+							Pessoa p1 = new Pessoa(cpfInt, nome, email, senha, telefoneInt);
 							PessoaDAO.cadastrarPessoa(p1);
+							MenuPessoa frame = new MenuPessoa();
+							frame.getFrmDas().setVisible(true);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 					}
 					if (resposta == "Motorista") {
-						JOptionPane.showMessageDialog(null, "Ola motorista!\n"
-						+ "Vamos cadastra-lo ao sistema para com que voce possa realizar suas corridas!");
-						String nome = JOptionPane.showInputDialog("Qual seu nome?");
-						String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
-						int cpfInt = Integer.parseInt(cpf);
-						String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
-						int telefoneInt = Integer.parseInt(telefone);
-						String email = JOptionPane.showInputDialog("Qual seu email?");
-						String senha = JOptionPane.showInputDialog("Defina uma senha");
-						String cnh = JOptionPane.showInputDialog("Qual a categoria da sua CNH?");
-						String numeroCnh = JOptionPane.showInputDialog("Qual o numero de sua CNH?");
-						int cnhInt = Integer.parseInt(numeroCnh);
-						Motorista m1 = new Motorista(cpfInt, nome, email, senha, telefoneInt, cnh, cnhInt);
 						try {
+							JOptionPane.showMessageDialog(null, "Ola motorista!\n"
+							+ "Vamos cadastra-lo ao sistema para com que voce possa realizar suas corridas!");
+							String nome = JOptionPane.showInputDialog("Qual seu nome?");
+							String cpf = JOptionPane.showInputDialog("Qual seu CPF?");
+							int cpfInt = Integer.parseInt(cpf);
+							String telefone = JOptionPane.showInputDialog("Qual seu numero para contato?");
+							int telefoneInt = Integer.parseInt(telefone);
+							String email = JOptionPane.showInputDialog("Qual seu email?");
+							String senha = JOptionPane.showInputDialog("Defina uma senha");
+							String cnh = JOptionPane.showInputDialog("Qual a categoria da sua CNH?");
+							String numeroCnh = JOptionPane.showInputDialog("Qual o numero de sua CNH?");
+							int cnhInt = Integer.parseInt(numeroCnh);
+							Motorista m1 = new Motorista(cpfInt, nome, email, senha, telefoneInt, cnh, cnhInt);
 							MotoristaDAO.cadastrarMotorista();
+							MenuMotorista frame = new MenuMotorista();
+							frame.getFrmMenu().setVisible(true);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}

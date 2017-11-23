@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -35,16 +36,33 @@ public class CarroDAO {
 			JOptionPane.showMessageDialog(null, "Erro ao relizar alteração");
 		}
 	}
-	public static void excluirCarro() throws IOException {
-		String placa = JOptionPane.showInputDialog("Placa do carro que deseja excluir: ");
-		Carro c1 = new Carro ();
-		c1.setPlaca(placa);
-		int sql = CarroRN.deletaCarro(c1);
+	public static void excluirCarro(Carro carro) throws IOException {
+		int sql = CarroRN.deletaCarro(carro.getIdCarro());
 		if (sql > 0) {
 			JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso!");
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Erro ao relizar exclusao");
 		}
+	}
+	public static Carro leCarro (long id) {
+		Carro c1 = CarroRN.readCarro(id);
+		return c1;
+	}
+	public static Carro resgataDados (String placa) {
+		List<Carro> carros = null;
+		carros = CarroRN.leCarros();
+		Carro c1 = new Carro();
+		for (int i = 0; i < carros.size(); i++) {
+			if (carros.get(i).getPlaca() == placa) {
+				c1.setCor(carros.get(i).getCor());
+				c1.setIdCarro(carros.get(i).getIdCarro());
+				c1.setMarca(carros.get(i).getMarca());
+				c1.setModelo(carros.get(i).getModelo());
+				c1.setPlaca(carros.get(i).getPlaca());
+				break;
+			}
+		}
+		return c1;
 	}
 }

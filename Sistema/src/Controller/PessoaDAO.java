@@ -53,7 +53,7 @@ public class PessoaDAO {
 				p1.setEmail(pessoas.get(i).getEmail());
 				p1.setSenha(pessoas.get(i).getSenha());
 				p1.setTelefone(pessoas.get(i).getTelefone());
-
+				break;
 			}
 		}
 		return p1;

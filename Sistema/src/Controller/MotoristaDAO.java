@@ -60,7 +60,6 @@ public class MotoristaDAO {
 	public static Motorista leMotorista (long id) {
 		Motorista m1 = MotoristaRN.readMotorista(id);
 		return m1;
-		
 	}
 	public static Motorista resgataDados (long numeroCnh) {
 		List<Motorista> motoristas = null;
@@ -77,6 +76,7 @@ public class MotoristaDAO {
 				m1.setTelefone(motoristas.get(i).getTelefone());
 				m1.setCategoriaCNH(motoristas.get(i).getCategoriaCNH());
 				m1.setNumeroCNH(motoristas.get(i).getNumeroCNH());
+				break;
 			}
 		}
 		return m1;

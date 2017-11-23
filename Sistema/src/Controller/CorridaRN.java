@@ -10,7 +10,7 @@ import Model.Corrida;
 public class CorridaRN {
 	public static int gravaCorrida(Corrida corrida) {
 
-        ResultSet ret;
+        int ret;
         try {
             Connection cn = GerenteDeConexao.criaConexao();
             PreparedStatement pst = cn.prepareStatement(
@@ -19,7 +19,7 @@ public class CorridaRN {
             pst.setLong(2, corrida.getIdPassageiro());
             pst.setLong(3, corrida.getIdMotorista());
             
-            ret = pst.executeQuery();
+            ret = pst.executeUpdate();
             
             return 1;
         } 
